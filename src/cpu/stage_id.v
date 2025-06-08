@@ -41,9 +41,9 @@ module stage_id (
 	reg[31:0] imm2;
 	reg inst_valid;
 
-	wire[`RegBus] rd = inst[11:7];
-	wire[`RegBus] rs = inst[19:15];
-	wire[`RegBus] rt = inst[24:20];
+	wire[`RegAddrBus] rd = inst[11:7];
+	wire[`RegAddrBus] rs = inst[19:15];
+	wire[`RegAddrBus] rt = inst[24:20];
 
 	reg stallreq_for_reg1_load;
 	reg stallreq_for_reg2_load;
@@ -206,15 +206,15 @@ module stage_id (
 							`SET_INST(`EXE_RES_LOGIC, `EXE_AND_OP, 1, 1, rs, 0, 0, 1, rd, 0, ({20'h0, I_imm}), 0)
 						end
 						`FUNCT3_SLLI : begin
-							`SET_INST(`EXE_RES_SHIFT, `EXE_SLL_OP, 1, 1, rs, 0, 0, 1, rd, 0, rt, 0)
+							`SET_INST(`EXE_RES_SHIFT, `EXE_SLL_OP, 1, 1, rs, 0, 0, 1, rd, 0, {{27{1'b0}}, rt}, 0)
 						end
 						`FUNCT3_SRLI_SRAI : begin
 							case (funct7)
 								`FUNCT7_SRLI : begin
-									`SET_INST(`EXE_RES_SHIFT, `EXE_SRL_OP, 1, 1, rs, 0, 0, 1, rd, 0, rt, 0)
+									`SET_INST(`EXE_RES_SHIFT, `EXE_SRL_OP, 1, 1, rs, 0, 0, 1, rd, 0, {{27{1'b0}}, rt}, 0)
 								end
 								`FUNCT7_SRAI : begin
-									`SET_INST(`EXE_RES_SHIFT, `EXE_SRA_OP, 1, 1, rs, 0, 0, 1, rd, 0, rt, 0)
+									`SET_INST(`EXE_RES_SHIFT, `EXE_SRA_OP, 1, 1, rs, 0, 0, 1, rd, 0, {{27{1'b0}}, rt}, 0)
 								end
 								default : begin
 								end
@@ -299,10 +299,12 @@ module stage_id (
 		end
 
 	always @ (*) begin
+		opv1 = 0;  // Default assignment
 		`SET_OPV(opv1, re1, reg_addr1, reg_data1, imm1, stallreq_for_reg1_load)
 	end
 
 	always @ (*) begin
+		opv2 = 0;  // Default assignment
 		`SET_OPV(opv2, re2, reg_addr2, reg_data2, imm2, stallreq_for_reg2_load)
 	end
 

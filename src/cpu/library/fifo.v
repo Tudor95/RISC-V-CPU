@@ -19,7 +19,7 @@ module fifo
     );
     
     localparam SIZE = 1 << SIZE_BIT;
-    reg [WIDTH-1:0] buffer[SIZE-1:0];
+    reg [WIDTH-1:0] fifo_fifo_fifo_buffer[SIZE-1:0];
     reg [SIZE_BIT-1:0] read_ptr;
     reg [SIZE_BIT-1:0] write_ptr;
     reg [SIZE_BIT:0] buffer_size;
@@ -31,7 +31,7 @@ module fifo
     assign read  = read_flag && !empty;
     assign write = write_flag && !full;
     
-    assign read_data = buffer[read_ptr];
+    assign read_data = fifo_fifo_fifo_buffer[read_ptr];
     
     integer i;
     always @(negedge CLK or posedge RST) begin
@@ -40,17 +40,17 @@ module fifo
     		write_ptr <= 0;
     		buffer_size <= 0;
     		for(i=0; i<SIZE; i=i+1)
-    			buffer[i] <= 0;
+    			fifo_fifo_fifo_buffer[i] <= 0;
     	end else begin
     		if(read && write) begin
-    			buffer[write_ptr] <= write_data;
+    			fifo_fifo_fifo_buffer[write_ptr] <= write_data;
     			read_ptr <= read_ptr + 1;
     			write_ptr <= write_ptr + 1;
     		end else if(read) begin
     			read_ptr <= read_ptr + 1;
     			buffer_size <= buffer_size - 1;
     		end else if(write) begin
-    			buffer[write_ptr] <= write_data;
+    			fifo_fifo_fifo_buffer[write_ptr] <= write_data;
     			write_ptr <= write_ptr + 1;
     			buffer_size <= buffer_size + 1;
     		end

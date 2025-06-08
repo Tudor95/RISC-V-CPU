@@ -1,0 +1,526 @@
+%Warning-DECLFILENAME: ip_models.v:3:8: Filename 'ip_models' does not match MODULE name: 'clk_wiz_0'
+    3 | module clk_wiz_0 (
+      |        ^~~~~~~~~
+                       ... For warning description see https://verilator.org/warn/DECLFILENAME?v=5.020
+                       ... Use "/* verilator lint_off DECLFILENAME */" and lint_on around source to disable this message.
+%Warning-DECLFILENAME: cache_fixed.v:8:8: Filename 'cache_fixed' does not match MODULE name: 'cache'
+    8 | module cache #(
+      |        ^~~~~
+%Warning-DECLFILENAME: fifo_fixed.v:5:8: Filename 'fifo_fixed' does not match MODULE name: 'fifo'
+    5 | module fifo
+      |        ^~~~
+%Warning-DECLFILENAME: ../src/../src/cpu/library/mfifo.v:6:8: Filename 'mfifo' does not match MODULE name: 'simo_fifo'
+%Warning-WIDTHTRUNC: cache_fixed.v:78:29: Operator ASSIGNW expects 1 bits on the Assign RHS, but Assign RHS's COND generates 32 or 5 bits.
+                                        : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+   78 |    assign one_hot_lookup[i] =
+      |                             ^
+%Warning-WIDTHTRUNC: cache_fixed.v:114:10: Bit extraction of array[1:0] requires 1 bit index, not 2 bits.
+                                         : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  114 |    recuse[cache_id][addr_index] <= recent_use_counter[addr_index] + 1;
+      |          ^
+%Warning-WIDTHTRUNC: cache_fixed.v:115:21: Bit extraction of array[1:0] requires 1 bit index, not 2 bits.
+                                         : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  115 |   end else if(recuse[cache_id][addr_index] != recent_use_counter[addr_index])
+      |                     ^
+%Warning-WIDTHEXPAND: cache_fixed.v:112:15: Operator NEQ expects 2 bits on the RHS, but RHS's VARREF 'mru_id' generates 1 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  112 |   if(cache_id != mru_id) begin
+      |               ^~
+%Warning-WIDTHEXPAND: cache_fixed.v:167:15: Input port connection 'rw_flag' expects 2 bits on the pin connection, but pin connection's VARREF 'RAM_read_flag' generates 1 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  167 |     clk, rst, RAM_read_flag,  {read_block, read_word},
+      |               ^~~~~~~~~~~~~
+%Warning-WIDTHEXPAND: cache_fixed.v:168:5: Input port connection 'write_data' expects 32 bits on the pin connection, but pin connection's VARREF 'RAM_write_flag' generates 1 bits.
+                                         : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  168 |     RAM_write_flag, write_data, {write_block, write_word}, write_mask, RAM_read_data[i]);
+      |     ^~~~~~~~~~~~~~
+%Warning-WIDTHTRUNC: cache_fixed.v:168:21: Input port connection 'write_mask' expects 4 bits on the pin connection, but pin connection's VARREF 'write_data' generates 32 bits.
+                                         : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  168 |     RAM_write_flag, write_data, {write_block, write_word}, write_mask, RAM_read_data[i]);
+      |                     ^~~~~~~~~~
+%Warning-WIDTHEXPAND: cache_fixed.v:168:33: Output port connection 'read_data' expects 32 bits on the pin connection, but pin connection's REPLICATE generates 7 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  168 |     RAM_write_flag, write_data, {write_block, write_word}, write_mask, RAM_read_data[i]);
+      |                                 ^
+%Warning-WIDTHTRUNC: cache_fixed.v:168:60: Output port connection 'busy' expects 1 bits on the pin connection, but pin connection's VARREF 'write_mask' generates 4 bits.
+                                         : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  168 |     RAM_write_flag, write_data, {write_block, write_word}, write_mask, RAM_read_data[i]);
+      |                                                            ^~~~~~~~~~
+%Warning-WIDTHTRUNC: cache_fixed.v:168:85: Output port connection 'done' expects 1 bits on the pin connection, but pin connection's ARRAYSEL generates 32 bits.
+                                         : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  168 |     RAM_write_flag, write_data, {write_block, write_word}, write_mask, RAM_read_data[i]);
+      |                                                                                     ^
+%Warning-WIDTHTRUNC: cache_fixed.v:226:18: Operator ASSIGNDLY expects 1 bits on the Assign RHS, but Assign RHS's VARREF 'next_current_cache' generates 2 bits.
+                                         : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  226 |    current_cache <= next_current_cache;
+      |                  ^~
+%Warning-WIDTHEXPAND: cache_fixed.v:236:22: Operator ASSIGN expects 2 bits on the Assign RHS, but Assign RHS's VARREF 'current_cache' generates 1 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  236 |   next_current_cache = current_cache;
+      |                      ^
+%Warning-WIDTHEXPAND: cache_fixed.v:268:17: Operator ASSIGN expects 2 bits on the Assign RHS, but Assign RHS's ARRAYSEL generates 1 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  268 |      read_cache = one_hot_lookup[found_in_cache];
+      |                 ^
+%Warning-WIDTHEXPAND: cache_fixed.v:276:25: Operator ASSIGN expects 2 bits on the Assign RHS, but Assign RHS's VARREF 'lru_id' generates 1 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  276 |      next_current_cache = lru_id;
+      |                         ^
+%Warning-WIDTHEXPAND: cache_fixed.v:291:18: Operator ASSIGN expects 2 bits on the Assign RHS, but Assign RHS's ARRAYSEL generates 1 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  291 |      write_cache = one_hot_lookup[found_in_cache];
+      |                  ^
+%Warning-WIDTHEXPAND: cache_fixed.v:309:17: Operator ASSIGN expects 2 bits on the Assign RHS, but Assign RHS's VARREF 'current_cache' generates 1 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  309 |     write_cache = current_cache;
+      |                 ^
+%Warning-WIDTHEXPAND: cache_fixed.v:327:17: Operator ASSIGN expects 2 bits on the Assign RHS, but Assign RHS's VARREF 'current_cache' generates 1 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  327 |     write_cache = current_cache;
+      |                 ^
+%Warning-WIDTHEXPAND: cache_fixed.v:345:19: Operator ASSIGN expects 2 bits on the Assign RHS, but Assign RHS's VARREF 'current_cache' generates 1 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  345 |        read_cache = current_cache;
+      |                   ^
+%Warning-WIDTHEXPAND: cache_fixed.v:352:18: Operator ASSIGN expects 2 bits on the Assign RHS, but Assign RHS's ARRAYSEL generates 1 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.icache0'
+  352 |       read_cache = one_hot_lookup[found_in_cache];
+      |                  ^
+%Warning-WIDTHEXPAND: ../src/../src/cpu/stage_id.v:44:16: Operator ASSIGNW expects 32 bits on the Assign RHS, but Assign RHS's SEL generates 5 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+   44 |  wire[31:0] rd = inst[11:7];
+      |                ^
+%Warning-WIDTHEXPAND: ../src/../src/cpu/stage_id.v:45:16: Operator ASSIGNW expects 32 bits on the Assign RHS, but Assign RHS's SEL generates 5 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+   45 |  wire[31:0] rs = inst[19:15];
+      |                ^
+%Warning-WIDTHEXPAND: ../src/../src/cpu/stage_id.v:46:16: Operator ASSIGNW expects 32 bits on the Assign RHS, but Assign RHS's SEL generates 5 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+   46 |  wire[31:0] rt = inst[24:20];
+      |                ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:102:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  102 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:102:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  102 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:102:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  102 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:109:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  109 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:112:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  112 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:115:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  115 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:119:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  119 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:119:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  119 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:125:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  125 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:125:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  125 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:129:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  129 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:129:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  129 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:133:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  133 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:133:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  133 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:137:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  137 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:137:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  137 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:141:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  141 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:141:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  141 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:145:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  145 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:145:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  145 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:155:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  155 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:155:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  155 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:158:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  158 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:158:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  158 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:161:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  161 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:161:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  161 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:164:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  164 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:164:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  164 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:167:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  167 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:167:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  167 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:176:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  176 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:176:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  176 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:179:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  179 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:179:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  179 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:182:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  182 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:182:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  182 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:191:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  191 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:191:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  191 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:194:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  194 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:194:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  194 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:197:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  197 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:197:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  197 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:200:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  200 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:200:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  200 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:203:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  203 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:203:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  203 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:206:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  206 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:206:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  206 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:209:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  209 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:209:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  209 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:214:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  214 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:214:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  214 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:217:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  217 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:217:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  217 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:232:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  232 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:232:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  232 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:232:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  232 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:235:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  235 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:235:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  235 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:235:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  235 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:242:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  242 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:242:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  242 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:242:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  242 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:245:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  245 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:245:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  245 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:245:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  245 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:248:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  248 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:248:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  248 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:248:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  248 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:251:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  251 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:251:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  251 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:251:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  251 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:256:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  256 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:256:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  256 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:256:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  256 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:259:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  259 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:259:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  259 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:259:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  259 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:266:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  266 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:266:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  266 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:266:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  266 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:269:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rs' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  269 |   reg_addr1 = rs;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:269:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rt' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  269 |   reg_addr2 = rt;
+      |             ^
+%Warning-WIDTHTRUNC: ../src/../src/cpu/stage_id.v:269:13: Operator ASSIGN expects 5 bits on the Assign RHS, but Assign RHS's VARREF 'rd' generates 32 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_id0'
+  269 |   reg_waddr = rd;
+      |             ^
+%Warning-WIDTHEXPAND: ../src/../src/cpu/stage_ex.v:88:16: Operator ASSIGN expects 32 bits on the Assign RHS, but Assign RHS's LTS generates 1 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_ex0'
+   88 |      arith_out = $signed(opv1) < $signed(opv2);
+      |                ^
+%Warning-WIDTHEXPAND: ../src/../src/cpu/stage_ex.v:91:16: Operator ASSIGN expects 32 bits on the Assign RHS, but Assign RHS's LT generates 1 bits.
+                                                        : ... note: In instance 'tb_riscv_cpu.dut.stage_ex0'
+   91 |      arith_out = opv1 < opv2;
+      |                ^
+%Warning-WIDTHTRUNC: cache_fixed.v:78:29: Operator ASSIGNW expects 2 bits on the Assign RHS, but Assign RHS's COND generates 32 or 5 bits.
+                                        : ... note: In instance 'tb_riscv_cpu.dut.dcache0'
+   78 |    assign one_hot_lookup[i] =
+      |                             ^
+%Warning-WIDTHTRUNC: cache_fixed.v:114:10: Bit extraction of array[3:0] requires 2 bit index, not 4 bits.
+                                         : ... note: In instance 'tb_riscv_cpu.dut.dcache0'
+  114 |    recuse[cache_id][addr_index] <= recent_use_counter[addr_index] + 1;
+      |          ^
+%Warning-WIDTHTRUNC: cache_fixed.v:115:21: Bit extraction of array[3:0] requires 2 bit index, not 4 bits.
+                                         : ... note: In instance 'tb_riscv_cpu.dut.dcache0'
+  115 |   end else if(recuse[cache_id][addr_index] != recent_use_counter[addr_index])
+      |                     ^
+%Warning-WIDTHEXPAND: cache_fixed.v:112:15: Operator NEQ expects 4 bits on the RHS, but RHS's VARREF 'mru_id' generates 2 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.dcache0'
+  112 |   if(cache_id != mru_id) begin
+      |               ^~
+%Warning-WIDTHEXPAND: cache_fixed.v:168:33: Output port connection 'read_data' expects 32 bits on the pin connection, but pin connection's REPLICATE generates 5 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.dcache0'
+  168 |     RAM_write_flag, write_data, {write_block, write_word}, write_mask, RAM_read_data[i]);
+      |                                 ^
+%Warning-WIDTHEXPAND: cache_fixed.v:216:5: Operator TASKREF 'use_cache' expects 4 bits on the Function Argument, but Function Argument's VARREF 'read_cache' generates 3 bits.
+                                         : ... note: In instance 'tb_riscv_cpu.dut.dcache0'
+  216 |     use_cache(read_cache);
+      |     ^~~~~~~~~
+%Warning-WIDTHTRUNC: cache_fixed.v:226:18: Operator ASSIGNDLY expects 2 bits on the Assign RHS, but Assign RHS's VARREF 'next_current_cache' generates 4 bits.
+                                         : ... note: In instance 'tb_riscv_cpu.dut.dcache0'
+  226 |    current_cache <= next_current_cache;
+      |                  ^~
+%Warning-WIDTHEXPAND: cache_fixed.v:236:22: Operator ASSIGN expects 4 bits on the Assign RHS, but Assign RHS's VARREF 'current_cache' generates 2 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.dcache0'
+  236 |   next_current_cache = current_cache;
+      |                      ^
+%Warning-WIDTHEXPAND: cache_fixed.v:268:17: Operator ASSIGN expects 3 bits on the Assign RHS, but Assign RHS's ARRAYSEL generates 2 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.dcache0'
+  268 |      read_cache = one_hot_lookup[found_in_cache];
+      |                 ^
+%Warning-WIDTHEXPAND: cache_fixed.v:276:25: Operator ASSIGN expects 4 bits on the Assign RHS, but Assign RHS's VARREF 'lru_id' generates 2 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.dcache0'
+  276 |      next_current_cache = lru_id;
+      |                         ^
+%Warning-WIDTHEXPAND: cache_fixed.v:291:18: Operator ASSIGN expects 3 bits on the Assign RHS, but Assign RHS's ARRAYSEL generates 2 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.dcache0'
+  291 |      write_cache = one_hot_lookup[found_in_cache];
+      |                  ^
+%Warning-WIDTHEXPAND: cache_fixed.v:309:17: Operator ASSIGN expects 3 bits on the Assign RHS, but Assign RHS's VARREF 'current_cache' generates 2 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.dcache0'
+  309 |     write_cache = current_cache;
+      |                 ^
+%Warning-WIDTHEXPAND: cache_fixed.v:327:17: Operator ASSIGN expects 3 bits on the Assign RHS, but Assign RHS's VARREF 'current_cache' generates 2 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.dcache0'
+  327 |     write_cache = current_cache;
+      |                 ^
+%Warning-WIDTHEXPAND: cache_fixed.v:345:19: Operator ASSIGN expects 3 bits on the Assign RHS, but Assign RHS's VARREF 'current_cache' generates 2 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.dcache0'
+  345 |        read_cache = current_cache;
+      |                   ^
+%Warning-WIDTHEXPAND: cache_fixed.v:352:18: Operator ASSIGN expects 3 bits on the Assign RHS, but Assign RHS's ARRAYSEL generates 2 bits.
+                                          : ... note: In instance 'tb_riscv_cpu.dut.dcache0'
+  352 |       read_cache = one_hot_lookup[found_in_cache];
+      |                  ^
+%Warning-WIDTHTRUNC: ../src/../tb_riscv_cpu.sv:57:10: Output port connection 'mem_rwe_o' expects 4 bits on the pin connection, but pin connection's VARREF 'mem_rwe' generates 8 bits.
+                                                    : ... note: In instance 'tb_riscv_cpu'
+   57 |         .mem_rwe_o(mem_rwe),
+      |          ^~~~~~~~~
+%Warning-STMTDLY: ../src/../tb_riscv_cpu.sv:70:13: Ignoring delay on this statement due to --no-timing
+                                                 : ... note: In instance 'tb_riscv_cpu'
+   70 |             #5 clk = 1'b1;
+      |             ^
+%Warning-STMTDLY: ../src/../tb_riscv_cpu.sv:71:13: Ignoring delay on this statement due to --no-timing
+                                                 : ... note: In instance 'tb_riscv_cpu'
+   71 |             #5 clk = 1'b0;
+      |             ^
+%Error-NOTIMING: ../src/../tb_riscv_cpu.sv:81:20: Event control statement in this location requires --timing
+                                                : ... note: In instance 'tb_riscv_cpu'
+                                                : ... With --no-timing, suggest have one event control statement per procedure, at the top of the procedure
+   81 |         repeat(20) @(posedge clk);
+      |                    ^
+%Error-NOTIMING: ../src/../tb_riscv_cpu.sv:274:9: Wait statements require --timing
+                                                : ... note: In instance 'tb_riscv_cpu'
+  274 |         wait(rst_n == 1'b1);
+      |         ^~~~
+%Error: Exiting due to 2 error(s), 130 warning(s)

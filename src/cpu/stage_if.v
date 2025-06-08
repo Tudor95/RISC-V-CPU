@@ -19,6 +19,15 @@ module stage_if (
 	reg waiting_one;
 
 	always @ (*) begin
+		// Default assignments to prevent latches
+		stallreq = 0;
+		mem_taking = 0;
+		pc_o = pc_i;
+		inst_o = mem_data_i;
+		mem_re = 0;
+		mem_addr_o = 0;
+		waiting_one = 0;
+		
 		if (right_one) begin
 			waiting_one = 0;
 			//$display("Right one is here, %h", pc_i);

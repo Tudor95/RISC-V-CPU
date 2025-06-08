@@ -85,10 +85,10 @@ module stage_ex (
 					arith_out = opv1 - opv2;
 				end
 				`EXE_SLT_OP : begin
-					arith_out = $signed(opv1) < $signed(opv2);
+					arith_out = {31'b0, $signed(opv1) < $signed(opv2)};
 				end
 				`EXE_SLTU_OP : begin
-					arith_out = opv1 < opv2;
+					arith_out = {31'b0, opv1 < opv2};
 				end
 				default : begin
 					arith_out = 0;

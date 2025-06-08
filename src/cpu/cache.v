@@ -1,7 +1,6 @@
 // This file is based on Zhekai Zhang's code
 
 `include "utility.v"
-`include "simple_ram.v"
 
 //Address (32-bit):
 //	TAG INDEX WORD_SELECT 00
@@ -67,15 +66,17 @@ module cache #(
 	wire [NASSOC-1:0]			found_in_cache, found_in_cache_flush;
 	wire [SET_SELECT_BIT-1:0]	one_hot_lookup[(1<<NASSOC)-1:0];
 	
-	wire [SET_SELECT_BIT-1:0]	lru_tmp[(1<<SET_SELECT_BIT)*2-1:1];
-	wire [SET_SELECT_BIT-1:0]	mru_tmp[(1<<SET_SELECT_BIT)*2-1:1];
-	wire [SET_SELECT_BIT-1:0]	lru_id_tmp[(1<<SET_SELECT_BIT)*2-1:1];
-	wire [SET_SELECT_BIT-1:0]	mru_id_tmp[(1<<SET_SELECT_BIT)*2-1:1];
+	/* verilator lint_off UNOPTFLAT */
+	wire [SET_SELECT_BIT-1:0] lru_tmp[(1<<SET_SELECT_BIT)*2-1:1];
+	wire [SET_SELECT_BIT-1:0] mru_tmp[(1<<SET_SELECT_BIT)*2-1:1];
+	wire [SET_SELECT_BIT-1:0] lru_id_tmp[(1<<SET_SELECT_BIT)*2-1:1];
+	wire [SET_SELECT_BIT-1:0] mru_id_tmp[(1<<SET_SELECT_BIT)*2-1:1];
+	/* verilator lint_on UNOPTFLAT */
 	
 	genvar i;
 	generate
 		for(i=0; i<(1<<NASSOC); i=i+1) begin
-			assign one_hot_lookup[i] = `CLOG2(i);
+			assign one_hot_lookup[i] = SET_SELECT_BIT'(`CLOG2(i));
 		end
 		for(i=0; i<NASSOC; i=i+1) begin
 			assign found_in_cache[i] 		= valid[i][addr_index] && tag[i][addr_index] == addr_tag;
@@ -107,7 +108,7 @@ module cache #(
 	assign mru_id = mru_id_tmp[1];
 	
 	task use_cache;
-		input [NASSOC-1:0]		cache_id;
+		input [SET_SELECT_BIT-1:0]		cache_id;
 		
 		if(cache_id != mru_id) begin
 			recent_use_counter[addr_index] <= recent_use_counter[addr_index] + 1;
@@ -148,7 +149,7 @@ module cache #(
 	reg [TAG_BIT-1:0]			valid_tag;
 	
 	reg 						next_done;
-	reg [NASSOC-1:0]			next_current_cache;
+	reg [SET_SELECT_BIT-1:0]	next_current_cache;
 	reg [TAG_BIT-1:0]			next_current_tag;
 	reg [INDEX_BIT-1:0]			next_current_block;
 	reg [WORD_SELECT_BIT-1:0]	next_current_word;
@@ -163,9 +164,11 @@ module cache #(
 		for(i=0; i<NASSOC; i=i+1) begin
 			wire RAM_read_flag = read_cache == i;
 			wire RAM_write_flag = write_cache == i;
-			simple_ram #(.AddrBusWidth(INDEX_BIT+WORD_SELECT_BIT), .DataBusByteWidth(4)) RAM(
-				clk, rst, RAM_read_flag,  {read_block, read_word}, 
-				RAM_write_flag, write_data, {write_block, write_word}, write_mask, RAM_read_data[i]); 
+			wire [1:0] rw_flag = {RAM_write_flag, RAM_read_flag};
+			wire ram_busy, ram_done;
+			simple_ram #(.ADDR_WIDTH(INDEX_BIT+WORD_SELECT_BIT), .DATA_WIDTH(4)) RAM(
+				clk, rst, rw_flag, {read_block, read_word}, 
+				write_data, write_mask, RAM_read_data[i], ram_busy, ram_done); 
 		end
 	endgenerate
 	
@@ -213,7 +216,7 @@ module cache #(
 				if(read_block != addr_index)
 					$display("Assertion Failed: read_block == addr_index");
 				RAM_read_select <= read_cache[SET_SELECT_BIT-1:0];
-				use_cache(read_cache);
+				use_cache(read_cache[SET_SELECT_BIT-1:0]);
 			end
 			if(valid_flag) begin
 				valid[valid_cache][valid_block] <= 1;
@@ -265,7 +268,7 @@ module cache #(
 			case(1'b1)
 			rw_flag[0]: begin
 				if(found_in_cache != 0) begin
-					read_cache = one_hot_lookup[found_in_cache];
+					read_cache = $signed({1'b0, one_hot_lookup[found_in_cache]});
 					read_block = addr_index;
 					read_word = addr_ws;
 					//read_flag = 1;
@@ -273,13 +276,13 @@ module cache #(
 				end else begin
 					mem_rw_flag = 1;
 					mem_addr = {addr_tag, addr_index, addr_ws, 2'b00};
-					next_current_cache = lru_id;
+					next_current_cache = SET_SELECT_BIT'(lru_id);
 					next_current_tag = addr_tag;
 					next_current_block = addr_index;
 					next_current_word = addr_ws;
 					next_critical_word = addr_ws;
 					next_state = STATE_WAIT_FOR_READ_PHASE_1;
-					valid_cache = lru_id;
+					valid_cache = SET_SELECT_BIT'(lru_id);
 					valid_block = addr_index;
 					valid_flag = 1;
 					valid_tag = addr_tag;
@@ -288,7 +291,7 @@ module cache #(
 			
 			rw_flag[1]: begin
 				if(found_in_cache != 0) begin
-					write_cache = one_hot_lookup[found_in_cache];
+					write_cache = $signed({1'b0, one_hot_lookup[found_in_cache]});
 					write_block = addr_index;
 					write_word = addr_ws;
 					write_data = write_data_in;
@@ -306,7 +309,7 @@ module cache #(
 		
 		STATE_WAIT_FOR_READ_PHASE_1: begin
 			if(mem_done) begin
-				write_cache = current_cache;
+				write_cache = $signed({1'b0, current_cache});
 				write_block = current_block;
 				write_word = current_word;
 				write_data = mem_read_data;
@@ -324,7 +327,7 @@ module cache #(
 		
 		STATE_WAIT_FOR_READ_PHASE_2: begin
 			if(mem_done) begin
-				write_cache = current_cache;
+				write_cache = $signed({1'b0, current_cache});
 				write_block = current_block;
 				write_word = current_word;
 				write_data = mem_read_data;
@@ -342,14 +345,14 @@ module cache #(
 				if(found_in_cache != 0) begin
 					if(one_hot_lookup[found_in_cache] == current_cache && addr_index == current_block) begin
 						if(addr_ws < current_word) begin
-							read_cache = current_cache;
+							read_cache = $signed({1'b0, current_cache});
 							read_block = current_block;
 							read_word = addr_ws;
 							//read_flag = 1;
 							next_done = 1;
 						end
 					end else begin
-						read_cache = one_hot_lookup[found_in_cache];
+						read_cache = $signed({1'b0, one_hot_lookup[found_in_cache]});
 						read_block = addr_index;
 						read_word = addr_ws;
 						//read_flag = 1;
@@ -361,7 +364,7 @@ module cache #(
 		
 		STATE_WAIT_FOR_WRITE: begin
 			if(mem_done) begin
-				next_state <= STATE_IDLE;
+				next_state = STATE_IDLE;
 			end
 		end
 		endcase

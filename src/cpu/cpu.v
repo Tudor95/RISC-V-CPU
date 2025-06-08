@@ -15,7 +15,7 @@ module cpu (
 	reg rst_delay;
 
 	wire clk;
-	clk_wiz_0 clk_wiz_0_0(.clk_out1(clk), .reset(0), .clk_in1(EXCLK));
+	clk_wiz_0 clk_wiz_0_0(.clk_out1(clk), .reset(0), .clk_in1(EXCLK), .locked());
 
 	always @ (posedge clk or negedge button) begin
 		if (!button) begin

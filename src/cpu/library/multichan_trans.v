@@ -55,21 +55,21 @@ module multichan_trans
 	assign readable = ~read_buffer_empty;
 	assign writable = ~write_buffer_full;
 	
-	reg [4:0] priority[CHANNEL-1:0];
+	reg [4:0] chan_priority[CHANNEL-1:0];
 	reg [2:0] skip_read[CHANNEL-1:0];
 	
 	//wire [4:0] max_priority[CHANNEL-1:0];
 	//wire [CHANNEL_BIT-1:0] current_read[CHANNEL-1:0];
 	
-//	assign max_priority[0] = write_buffer_empty[0] ? 0 : priority[0];
+//	assign max_priority[0] = write_buffer_empty[0] ? 0 : chan_priority[0];
 //	assign current_read[0] = 0;
 	
 //	genvar i;
 //	generate
 //		for(i=1; i < CHANNEL; i=i+1) begin
-//			assign max_priority[i] = !write_buffer_empty[i] && priority[i] > max_priority[i-1] ? priority[i] : max_priority[i-1];
+//			assign max_priority[i] = !write_buffer_empty[i] && chan_priority[i] > max_priority[i-1] ? chan_priority[i] : max_priority[i-1];
 //			assign current_read[i] = !write_buffer_empty[i] && 
-//				(priority[i] > max_priority[i-1] || (priority[i] == max_priority[i-1] && skip_read[i] > skip_read[current_read[i-1]])) ? i : current_read[i-1];
+//				(chan_priority[i] > max_priority[i-1] || (chan_priority[i] == max_priority[i-1] && skip_read[i] > skip_read[current_read[i-1]])) ? i : current_read[i-1];
 //		end
 //	endgenerate
 
@@ -87,12 +87,11 @@ module multichan_trans
 				current_read_array[i] <= 0;
 			end
 		end else begin
-			max_priority_array[0] <= write_buffer_empty[0] ? 0 : priority[0];
+			max_priority_array[0] <= write_buffer_empty[0] ? 0 : chan_priority[0];
 			current_read_array[0] <= 0;
 			for(i=1; i < CHANNEL; i=i+1) begin
-				if(!write_buffer_empty[i] && 
-					(priority[i] > max_priority_array[i-1] || (priority[i] == max_priority_array[i-1] && skip_read[i] > skip_read[current_read_array[i-1]]))) begin
-					max_priority_array[i] <= priority[i];
+				if(!write_buffer_empty[i] && (chan_priority[i] > max_priority_array[i-1] || (chan_priority[i] == max_priority_array[i-1] && skip_read[i] > skip_read[current_read_array[i-1]]))) begin
+					max_priority_array[i] <= chan_priority[i];
 					current_read_array[i] <= i;
 				end else begin
 					max_priority_array[i] <= max_priority_array[i-1];
@@ -136,7 +135,7 @@ module multichan_trans
 			send_bit <= 0;
 			packet_id <= 0;
 			for(j=0; j < CHANNEL; j=j+1) begin
-				priority[j] <= CHANNEL_PRIORITY[j*5 +: 5];
+				chan_priority[j] <= CHANNEL_PRIORITY[j*5 +: 5];
 				skip_read[j] <= 0;
 			end
 		end else if(sendable) begin
@@ -149,13 +148,13 @@ module multichan_trans
 					send_channel <= write_buffer_select;
 					
 					skip_read[write_buffer_select] <= 0;
-					priority[write_buffer_select] <= CHANNEL_PRIORITY[write_buffer_select*5 +: 5];
+					chan_priority[write_buffer_select] <= CHANNEL_PRIORITY[write_buffer_select*5 +: 5];
 					for(j=0; j < CHANNEL; j=j+1)
 						if(j != write_buffer_select && !write_buffer_empty[j]) begin
 							if(skip_read[j] == 7) begin
 								skip_read[j] <= 0;
-								if(priority[j][3:0] != 4'hf)
-									priority[j] <= priority[j] + 1;
+								if(chan_priority[j][3:0] != 4'hf)
+									chan_priority[j] <= chan_priority[j] + 1;
 							end else
 								skip_read[j] <= skip_read[j] + 1;
 						end
